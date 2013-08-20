@@ -37,3 +37,37 @@ Running tests
 
 Once buildout is run, you should have a testrunner to run tests from any of the
 modules, for example ``bin/test -s tutorweb.content``.
+
+Setting up site
+===============
+
+There are (for now) a few things you have to do manually.
+
+* Remove the navigation portlet from the root of the site, with @@manage_portlets
+* Allow users to register themselves in security control panel
+
+Production Installation
+=======================
+
+Creating MySQL Database
+-----------------------
+
+Log in to the MySQL database as root, issue the following commands::
+
+    CREATE DATABASE tw_quizdb;
+    GRANT SELECT,INSERT,UPDATE,CREATE,INDEX,ALTER,LOCK TABLES
+        ON tw_quizdb.*
+        TO 'tw_quizdb'@'localhost'
+        IDENTIFIED BY 'quizdb';
+
+Buildout configuration
+----------------------
+
+Next, make a buildout.cfg, e.g.
+
+    [buildout]
+    extends = cfgs/production.cfg
+    quizdb-url = mysql+mysqldb://tw_quizdb:quizdb@localhost/tw_quizdb?charset=utf8
+    
+    [instance]
+    user = admin:admin
