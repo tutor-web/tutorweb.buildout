@@ -28,9 +28,11 @@ Installation is much the same as any other buildout-based site.
 4. ``bin/buildout``
 5. ``bin/instance fg``
 
-By default, it will use a SQLite database ``quizdb.sqlite`` in the current
-directory. You can find the other repositories already checked out under
-``src/``.
+NB: You don't need to set up MySQL. By default, it will use a SQLite database
+``quizdb.sqlite`` in the current directory.
+
+All the other tutorweb repositories will be checked out for you under the
+``src/`` directory.
 
 Running tests
 -------------
@@ -85,10 +87,10 @@ to:
 
 If you want more details of these, look at the ``cfgs/production.cfg`` file.
 
-Setting up site
-===============
+Setting up the Plone site
+=========================
 
-You need to create a site by going to ``@@plone-addsite?site_id=tutor-web&advanced=1``.
+You need to create a site by going to ``/@@plone-addsite?site_id=tutor-web&advanced=1``.
 Ensure that 'Tutorweb' and 'Tutorweb content' are selected.
 
 There are (for now) a few things you have to do manually once a site is created.
