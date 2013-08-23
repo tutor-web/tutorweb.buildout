@@ -4,11 +4,6 @@ develop-eggs
 dist
 downloads
 eggs
-etc/haproxy.cfg
-etc/logrotate.conf
-etc/plugins/
-etc/supervisord.conf
-etc/varnish.vcl
 include
 lib
 parts
