@@ -38,14 +38,6 @@ Running tests
 Once buildout is run, you should have a testrunner to run tests from any of the
 modules, for example ``bin/test -s tutorweb.content``.
 
-Setting up site
-===============
-
-There are (for now) a few things you have to do manually.
-
-* Remove the navigation portlet from the root of the site, with @@manage_portlets
-* Allow users to register themselves in security control panel
-
 Production Installation
 =======================
 
@@ -63,7 +55,7 @@ Log in to the MySQL database as root, issue the following commands::
 Buildout configuration
 ----------------------
 
-Next, make a buildout.cfg, e.g.
+Next, clone this repository somewhere and make a buildout.cfg, e.g.
 
     [buildout]
     extends = cfgs/production.cfg
@@ -71,3 +63,44 @@ Next, make a buildout.cfg, e.g.
     
     [instance]
     user = admin:admin
+
+Then run your buildout config:
+
+    python bootstrap.py
+    ./bin/buildout
+
+Finally, start Plone:
+
+    ./bin/supervisord
+
+Cron jobs
+---------
+
+The buildout will automatically create entries in the current user's crontab
+to::
+
+* Pack the ZEODB
+* Backup Plone
+* Start Plone on machine startup
+
+If you want more details of these, look at the ``cfgs/production.cfg`` file.
+
+Setting up site
+===============
+
+You need to create a site by going to ``@@plone-addsite?site_id=tutor-web&advanced=1``.
+Ensure that 'Tutorweb' and 'Tutorweb content' are selected.
+
+There are (for now) a few things you have to do manually once a site is created.
+
+* Remove the navigation portlet from the root of the site, with @@manage_portlets
+* Allow users to register themselves in security control panel
+* Configure a mail relay in the Plone control panel
+
+Virtual Host Monster
+--------------------
+
+To remove the need to supply /tutor-web, you can either configure the front end
+to use the VHM, or go to /manage, virtual hosting and set up a mapping such as::
+
+    mobile.tutor-web.net/tutor-web
