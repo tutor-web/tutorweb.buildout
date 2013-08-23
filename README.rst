@@ -55,7 +55,7 @@ Log in to the MySQL database as root, issue the following commands::
 Buildout configuration
 ----------------------
 
-Next, clone this repository somewhere and make a buildout.cfg, e.g.
+Next, clone this repository somewhere and make a buildout.cfg, e.g.::
 
     [buildout]
     extends = cfgs/production.cfg
@@ -64,12 +64,12 @@ Next, clone this repository somewhere and make a buildout.cfg, e.g.
     [instance]
     user = admin:admin
 
-Then run your buildout config:
+Then run your buildout config::
 
     python bootstrap.py
     ./bin/buildout
 
-Finally, start Plone:
+Finally, start Plone::
 
     ./bin/supervisord
 
@@ -77,7 +77,7 @@ Cron jobs
 ---------
 
 The buildout will automatically create entries in the current user's crontab
-to::
+to:
 
 * Pack the ZEODB
 * Backup Plone
@@ -93,7 +93,7 @@ Ensure that 'Tutorweb' and 'Tutorweb content' are selected.
 
 There are (for now) a few things you have to do manually once a site is created.
 
-* Remove the navigation portlet from the root of the site, with @@manage_portlets
+* Remove the navigation portlet from the root of the site, with ``@@manage_portlets``
 * Allow users to register themselves in security control panel
 * Configure a mail relay in the Plone control panel
 
