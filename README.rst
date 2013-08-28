@@ -49,10 +49,13 @@ Creating MySQL Database
 Log in to the MySQL database as root, issue the following commands::
 
     CREATE DATABASE tw_quizdb;
-    GRANT SELECT,INSERT,UPDATE,CREATE,INDEX,ALTER,LOCK TABLES
+    GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,INDEX,ALTER,LOCK TABLES
         ON tw_quizdb.*
         TO 'tw_quizdb'@'localhost'
         IDENTIFIED BY 'quizdb';
+
+Note, the database will be created automatically, but any schema alterations
+will have to be performed manually in SQL.
 
 Buildout configuration
 ----------------------
@@ -86,6 +89,13 @@ to:
 * Start Plone on machine startup
 
 If you want more details of these, look at the ``cfgs/production.cfg`` file.
+
+Debug instance
+--------------
+
+The buildout also sets up a buildout instance for tinkering. Invoke with
+``./bin/instance-debug fg`` to run an instance accessible on port 8189,
+``./bin/instance-debug debug`` to open the instance with a debug console.
 
 Setting up the Plone site
 =========================
