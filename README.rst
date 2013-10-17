@@ -53,6 +53,10 @@ Log in to the MySQL database as root, issue the following commands::
         ON tw_quizdb.*
         TO 'tw_quizdb'@'localhost'
         IDENTIFIED BY 'quizdb';
+    GRANT DELETE
+        ON tw_quizdb.allocation
+        TO 'tw_quizdb'@'localhost'
+        IDENTIFIED BY 'quizdb';
 
 Note, the database will be created automatically, but any schema alterations
 will have to be performed manually in SQL.
