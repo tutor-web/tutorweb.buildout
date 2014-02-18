@@ -34,6 +34,12 @@ NB: You don't need to set up MySQL. By default, it will use a SQLite database
 All the other tutorweb repositories will be checked out for you under the
 ``src/`` directory.
 
+Fake SMTP server
+----------------
+
+The development buildout will also create a fake smtpd server, running on port
+1025. You can run it with ``./bin/smtpd``
+
 Running tests
 -------------
 
