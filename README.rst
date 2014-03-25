@@ -38,7 +38,7 @@ Fake SMTP server
 ----------------
 
 The development buildout will also create a fake smtpd server, running on port
-1025. You can run it with ``./bin/smtpd``
+1025. You can run it with ``./bin/debugsmtp``
 
 Running tests
 -------------
