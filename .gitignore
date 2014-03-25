@@ -17,3 +17,6 @@ var
 blob.tar.gz
 
 db.tar.gz
+
+/buildout.cfg
+/quizdb.sqlite
