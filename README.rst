@@ -22,9 +22,9 @@ Installation
 
 Installation is much the same as any other buildout-based site.
 
-1. Check out this repository somewhere
+1. Check out this repository somewhere, e.g. ``git clone git://github.com/tutor-web/tutorweb.buildout``
+3. ``cp buildout.cfg.example buildout.cfg`` and edit it to your liking
 2. ``python bootstrap.py``
-3. ``echo -e "[buildout]\nextends = cfgs/development.cfg" > buildout.cfg``
 4. ``bin/buildout``
 5. ``bin/instance fg``
 
