@@ -126,3 +126,13 @@ To remove the need to supply /tutor-web, you can either configure the front end
 to use the VHM, or go to /manage, virtual hosting and set up a mapping such as::
 
     mobile.tutor-web.net/tutor-web
+
+Notes
+=====
+
+Configuring password reset emails
+---------------------------------
+
+The template is in ``/portal_skins/PasswordReset/registered_notify_template/manage_main``.
+
+The expiry time is set in ``/portal_password_reset/manage_overview``.
