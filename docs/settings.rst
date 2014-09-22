@@ -47,13 +47,30 @@ Question timeout:
 Randomly assigned settings
 ==========================
 
-Any setting can have ``:min`` and ``:max`` variants (the interface will not show
+Any setting can have ``:min`` and ``:max`` postfixes (the interface will not show
 all combinations though). If ``:max`` is set, then any time a student takes this
-lecture, a random value with 3dp 0..``:max`` will be assigned to them. In
+lecture, a random value with 3dp from 0 to ``:max`` will be assigned to them. In
 addition, ``:min`` can be set to alter the lower bound. Just setting ``:min`` will
 result in an error.
+
+For example, setting ``grade_alpha:min`` to 0.1 and ``grade_alpha:max`` to 0.2
+will mean a student will, when starting a lecture, be assigned a
+``grade_alpha`` between 0.1 and 0.2. They will continue to use this value
+whenever answering this question within a lecture.
 
 Note that the ``_min`` in ``timeout_min`` is unrelated to ``:min``. A new timeout is
 assigned per-question, not per-lecture. One could have ``timeout_max:max``, which
 assigns a random maximum timeout for each student, but it's probably not that
 useful.
+
+Updating settings
+=================
+
+If any setting for a lecture is updated, then a student will start using that
+new value once they sync their copy of the lecture, i.e. when they answer their
+next question. In addition, if ``:min`` or ``:max`` is changed, then they will
+be randomly assigned a new value between those bounds.
+
+If students have finished working on that lecture then their settings will be
+left unchanged. This means that historical data where students worked with
+different values will be preserved.
