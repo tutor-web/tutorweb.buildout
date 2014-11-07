@@ -29,6 +29,8 @@ Question template (i.e. crowdsourced questions) options:
 
 * ``prob_template``: Probability that a student will get a question template instead of a regular question. Default 0.1
 * ``prob_template_eval``: Probability that a student, given they are getting a question template, they should evaluate someone elses efforts on that question. Default 0.8
+* ``cap_template_qns``: Number of questions a student has to write in total. Default 5
+* ``cap_template_qn_reviews``: Number of times a question needs to be reviewed. Default 10
 
 Grading algorithm:
 
