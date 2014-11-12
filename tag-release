@@ -1,0 +1,17 @@
+#!/bin/sh
+
+ACTIVE="1"
+[ "$1" = "-n" ] && ACTIVE=""
+
+for f in . src/tutorweb.* src/Products.TutorWeb; do
+    (
+        echo === $f
+        cd $f;
+        git glog $(git tag | sort | tail -1)..HEAD
+        if [ -n "$ACTIVE" ]; then
+            git tag $(date +'%Y-%m-%d');
+            git push;
+            git push --tags;
+        fi
+    )
+done
