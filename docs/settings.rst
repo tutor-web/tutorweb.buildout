@@ -21,9 +21,9 @@ Question assignment:
 
 Coin awards for students:
 
-* ``award_lecture_answered``: Coins awarded for getting grade 5 in a lecture. Default 1
-* ``award_lecture_aced``: Coins awarded for getting grade 10 in a lecture. Default 10
-* ``award_tutorial_aced`` Coins awarded for getting grade 10 in every lecture. Default 100
+* ``award_lecture_answered``: Milli-SMLY awarded for getting grade 5 in a lecture. Default 1000
+* ``award_lecture_aced``: Milli-SMLY awarded for getting grade 10 in a lecture. Default 10000
+* ``award_tutorial_aced`` Milli-SMLY awarded for getting grade 10 in every lecture. Default 100000
 
 Question template (i.e. crowdsourced questions) options:
 
