@@ -21,7 +21,7 @@ Question assignment:
 
 Coin awards for students:
 
-* ``award_lecture_answered``: Coins awarded for getting 8 questions correct. Default 1
+* ``award_lecture_answered``: Coins awarded for getting grade 5 in a lecture. Default 1
 * ``award_lecture_aced``: Coins awarded for getting grade 10 in a lecture. Default 10
 * ``award_tutorial_aced`` Coins awarded for getting grade 10 in every lecture. Default 100
 
