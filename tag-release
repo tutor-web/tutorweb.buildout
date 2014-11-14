@@ -3,13 +3,19 @@
 ACTIVE="1"
 [ "$1" = "-n" ] && ACTIVE=""
 
+I=0
+while git tag | grep -q "$(date +'%Y-%m-%d')-$I"; do
+    I=$((I+1))
+done
+echo This release will be "$(date +'%Y-%m-%d')-$I"
+
 for f in . src/tutorweb.* src/Products.TutorWeb; do
     (
         echo === $f
         cd $f;
         git glog $(git tag | sort | tail -1)..HEAD
         if [ -n "$ACTIVE" ]; then
-            git tag $(date +'%Y-%m-%d');
+            git tag "$(date +'%Y-%m-%d')-$I";
             git push;
             git push --tags;
         fi
