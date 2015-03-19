@@ -75,6 +75,8 @@ Next, clone this repository somewhere and make a buildout.cfg, e.g.::
     [buildout]
     extends = cfgs/production.cfg
     quizdb-url = mysql+mysqldb://tw_quizdb:quizdb@localhost/tw_quizdb?charset=utf8
+    eggs +=
+        MySQL-python
     
     [instance]
     user = admin:admin
