@@ -8,12 +8,19 @@ These can be set by doing one of:
 
 * Editing the relevant tutorial
 * Editing the relevant lecture
+* Editing the defaults
 
 For each lecture, the 2 lists of settings will be combined, the settings from a
 lecture winning over any matching settings from a tutorial.
 
 Core list of settings
 =====================
+
+Plone stores a list of all settings, and what their defaults should be. You can alter this by going here:
+
+http://zoot:8080/portal_registry/edit/tutorweb.content.lectureSettings
+
+A description of each settings follows.
 
 Question assignment:
 
