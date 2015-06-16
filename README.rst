@@ -14,6 +14,14 @@ The tutorweb is broken up into several repositories:
 * tutorweb.content: The Plone content type configuration
 * Products.Tutorweb: Legacy bits and bobs not yet ported over.
 
+Before installing
+=================
+
+Before you can install, either for production or development, you need:
+
+    apt-get install build-install python-dev \
+        libxml2-dev libxslt-dev zlib1g-dev
+
 Development
 ===========
 
