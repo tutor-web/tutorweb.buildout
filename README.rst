@@ -70,16 +70,8 @@ will have to be performed manually in SQL.
 Buildout configuration
 ----------------------
 
-Next, clone this repository somewhere and make a buildout.cfg, e.g.::
-
-    [buildout]
-    extends = cfgs/production.cfg
-    quizdb-url = mysql+mysqldb://tw_quizdb:quizdb@localhost/tw_quizdb?charset=utf8
-    eggs +=
-        MySQL-python
-    
-    [instance]
-    user = admin:admin
+Next, clone this repository somewhere, copy ``buildout.cfg.example`` to
+``buildout.cfg`` and edit it to your tastes.
 
 Then run your buildout config::
 

@@ -3,6 +3,8 @@ extends = cfgs/development.cfg
 eggs +=
     Products.PDBDebugMode
 quizdb-url = sqlite:///quizdb.sqlite
+quizdb-coin-pass = INSERTPASSWORD
+quizdb-coin-walletpass = INSERTPASSWORD
 
 [instance]
 user = admin:admin
