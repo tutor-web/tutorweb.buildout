@@ -22,6 +22,10 @@ Before you can install, either for production or development, you need:
     apt-get install build-install python-dev \
         libxml2-dev libxslt-dev zlib1g-dev
 
+And if using MySQL, you need:
+
+    apt-get install libmysqlclient-dev
+
 Development
 ===========
 
