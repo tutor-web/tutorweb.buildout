@@ -112,12 +112,14 @@ Replication
 By default, replication is disabled. To enable, you need to add config either end::
 
     [buildout]
-    parts += replicate-dump
-    [replicate-dump]
-    host = zoot
+    parts +=
+        replicate-dump
+        replicate-dump-mkdir
 
     [buildout]
-    parts += replicate-ingest
+    parts +=
+        replicate-ingest
+        replicate-ingest-mkdir
     [replicate-ingest]
     host = zoot
     host-buildout-dir = /srv/devel/work/ui.tutorweb.buildout
