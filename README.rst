@@ -106,6 +106,22 @@ to:
 
 If you want more details of these, look at the ``cfgs/production.cfg`` file.
 
+Replication
+-----------
+
+By default, replication is disabled. To enable, you need to add config either end::
+
+    [buildout]
+    parts += replicate-dump
+    [replicate-dump]
+    host = zoot
+
+    [buildout]
+    parts += replicate-ingest
+    [replicate-ingest]
+    host = zoot
+    host-buildout-dir = /srv/devel/work/ui.tutorweb.buildout
+
 Debug instance
 --------------
 
