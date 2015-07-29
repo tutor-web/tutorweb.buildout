@@ -44,7 +44,7 @@ Grading algorithm:
 * ``grade_nmin``: Minimum number of questions to consider during grading. Default 8
 * ``grade_nmax``: Maximum number of questions to consdier during grading. Default 30
 * ``grade_alpha``: Default 0.125
-* ``grade_s``: Default 2
+* ``grade_s``: Default 1
 
 Question timeout:
 
