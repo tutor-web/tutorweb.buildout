@@ -26,6 +26,10 @@ Question assignment:
 
 * ``question_cap``: The maximum number of questions of each question type that a student should be allocated. Default 100
 
+Tutor/pupil chat:
+
+* ``chat_competent_grade``: If a student gets a grade higher than this in a lecture, they can be a tutor. Default off
+
 Coin awards for students:
 
 * ``award_lecture_answered``: Milli-SMLY awarded for getting grade 5 in a lecture. Default 1000
