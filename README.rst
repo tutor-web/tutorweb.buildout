@@ -19,8 +19,7 @@ Prerequisites
 
 Before you can install, either for production or development, you need:
 
-    apt-get install build-essential python-dev \
-        libxml2-dev libxslt-dev zlib1g-dev
+    apt-get install build-essential python-dev libxml2-dev libxslt-dev zlib1g-dev
 
 And if using MySQL, you need:
 
