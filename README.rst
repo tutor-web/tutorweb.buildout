@@ -14,34 +14,46 @@ The tutorweb is broken up into several repositories:
 * tutorweb.content: The Plone content type configuration
 * Products.Tutorweb: Legacy bits and bobs not yet ported over.
 
-Before installing
-=================
+Prerequisites
+=============
 
 Before you can install, either for production or development, you need:
 
-    apt-get install build-install python-dev \
+    apt-get install build-essential python-dev \
         libxml2-dev libxslt-dev zlib1g-dev
 
 And if using MySQL, you need:
 
-    apt-get install libmysqlclient-dev
-
-Development
-===========
+    apt-get install mysql-server libmysqlclient-dev
 
 Installation
-------------
+============
 
 Installation is much the same as any other buildout-based site.
 
-1. Check out this repository somewhere, e.g. ``git clone git://github.com/tutor-web/tutorweb.buildout``
-3. ``cp buildout.cfg.example buildout.cfg`` and edit it to your liking
-2. ``python bootstrap.py``
-4. ``bin/buildout``
-5. ``bin/instance fg``
+1) ``git clone git://github.com/tutor-web/tutorweb.buildout /srv/tutor-web`` (or wherever) to check out this repository
+2) ``cp buildout.cfg.example buildout.cfg``
+3) Edit ``buildout.cfg`` to suit your situation, see notes inside the file.
+3) ``python bootstrap.py``
+4) ``bin/buildout``
 
-NB: You don't need to set up MySQL. By default, it will use a SQLite database
-``quizdb.sqlite`` in the current directory.
+Finally either use ``./bin/supervisord`` to start your production Plone or
+use ``bin/instance fg`` to launch a standalone development Plone.
+
+Setting up the Plone site
+=========================
+
+You need to create a site by going to ``/@@plone-addsite?site_id=tutor-web&advanced=1``.
+Ensure that 'Tutorweb' and 'Tutorweb content' are selected.
+
+There are (for now) a few things you have to do manually once a site is created.
+
+* Remove the navigation portlet from the root of the site, with ``@@manage_portlets``
+* Allow users to register themselves in security control panel
+* Configure a mail relay in the Plone control panel
+
+Development
+===========
 
 All the other tutorweb repositories will be checked out for you under the
 ``src/`` directory.
@@ -60,39 +72,6 @@ modules, for example ``bin/test -s tutorweb.content``.
 
 Production Installation
 =======================
-
-Creating MySQL Database
------------------------
-
-Log in to the MySQL database as root, issue the following commands::
-
-    CREATE DATABASE tw_quizdb;
-    GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,INDEX,ALTER,LOCK TABLES
-        ON tw_quizdb.*
-        TO 'tw_quizdb'@'localhost'
-        IDENTIFIED BY 'quizdb';
-    GRANT DELETE
-        ON tw_quizdb.allocation
-        TO 'tw_quizdb'@'localhost'
-        IDENTIFIED BY 'quizdb';
-
-Note, the database will be created automatically, but any schema alterations
-will have to be performed manually in SQL.
-
-Buildout configuration
-----------------------
-
-Next, clone this repository somewhere, copy ``buildout.cfg.example`` to
-``buildout.cfg`` and edit it to your tastes.
-
-Then run your buildout config::
-
-    python bootstrap.py
-    ./bin/buildout
-
-Finally, start Plone::
-
-    ./bin/supervisord
 
 Cron jobs
 ---------
@@ -130,18 +109,6 @@ Debug instance
 The buildout also sets up a buildout instance for tinkering. Invoke with
 ``./bin/instance-debug fg`` to run an instance accessible on port 8189,
 ``./bin/instance-debug debug`` to open the instance with a debug console.
-
-Setting up the Plone site
-=========================
-
-You need to create a site by going to ``/@@plone-addsite?site_id=tutor-web&advanced=1``.
-Ensure that 'Tutorweb' and 'Tutorweb content' are selected.
-
-There are (for now) a few things you have to do manually once a site is created.
-
-* Remove the navigation portlet from the root of the site, with ``@@manage_portlets``
-* Allow users to register themselves in security control panel
-* Configure a mail relay in the Plone control panel
 
 Virtual Host Monster
 --------------------
