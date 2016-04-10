@@ -63,6 +63,11 @@ Study Time (i.e. combined time spent on question and reading explanation):
 * ``studytime_factor``: Default 2, study_time = incorrect_questions_in_a_row * factor
 * ``studytime_max``: Default 20, maximum study time in seconds.
 
+Allocation
+
+* ``iaa_type``: Default "adaptive", which IAA algorithm to use on the client.
+* ``allocation_method``: Default "original", which IAA algorithm to use on the server.
+
 Randomly assigned settings
 ==========================
 
