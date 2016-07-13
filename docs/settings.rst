@@ -67,6 +67,7 @@ Study Time (i.e. combined time spent on question and reading explanation):
 Allocation
 
 * ``iaa_type``: Default "adaptive", which IAA algorithm to use on the client.
+* ``iaa_adaptive_gpow``: Default 1
 * ``allocation_method``: Default "original", which IAA algorithm to use on the server.
 
 Randomly assigned settings
