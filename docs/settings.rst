@@ -61,7 +61,13 @@ Question timeout:
 
 Study Time (i.e. combined time spent on question and reading explanation):
 
-* ``studytime_factor``: Default 2, study_time = incorrect_questions_in_a_row * factor
+  Study time = min(
+      studytime_factor * (incorrect questions in a row) +
+      studytime_answeredfactor * (# of questions answered including practice),
+      studytime_max)
+
+* ``studytime_factor``: Default 2
+* ``studytime_answeredfactor``: Default 0
 * ``studytime_max``: Default 20, maximum study time in seconds.
 
 Allocation
