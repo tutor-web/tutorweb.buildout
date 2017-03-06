@@ -1,13 +1,15 @@
-bin
-build
-develop-eggs
-dist
-downloads
-eggs
-include
-lib
-parts
-htmlcov
+/bin
+/build
+/develop-eggs
+/dist
+/downloads
+/eggs
+/include
+/lib
+/local
+/local-eggs/*
+/parts
+/htmlcov
 src/*/*.egg-info
 /src/
 var
@@ -20,3 +22,5 @@ db.tar.gz
 
 /buildout.cfg
 /quizdb.sqlite
+
+/buildout-dummyproduction.cfg

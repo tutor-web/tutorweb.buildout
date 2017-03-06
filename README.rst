@@ -33,8 +33,9 @@ Installation is much the same as any other buildout-based site.
 1) ``git clone git://github.com/tutor-web/tutorweb.buildout /srv/tutor-web`` (or wherever) to check out this repository
 2) ``cp buildout.cfg.example buildout.cfg``
 3) Edit ``buildout.cfg`` to suit your situation, see notes inside the file.
-3) ``python bootstrap.py``
-4) ``bin/buildout``
+4) ``virtualenv .``
+5) ``./bin/pip install -r requirements.txt``
+6) ``bin/buildout``
 
 Finally either use ``./bin/supervisord`` to start your production Plone or
 use ``bin/instance fg`` to launch a standalone development Plone.
