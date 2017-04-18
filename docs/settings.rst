@@ -25,6 +25,7 @@ A description of each settings follows.
 Question assignment:
 
 * ``question_cap``: The maximum number of questions of each question type that a student should be allocated. Default 100
+* ``hist_sel``: Probability that a question from a previous lecture should be selected
 
 Tutor/pupil chat:
 
@@ -34,7 +35,8 @@ Coin awards for students:
 
 * ``award_lecture_answered``: Milli-SMLY awarded for getting grade 5 in a lecture. Default 1000
 * ``award_lecture_aced``: Milli-SMLY awarded for getting grade 10 in a lecture. Default 10000
-* ``award_tutorial_aced`` Milli-SMLY awarded for getting grade 10 in every lecture. Default 100000
+* ``award_tutorial_aced``: Milli-SMLY awarded for getting grade 10 in every lecture. Default 100000
+* ``award_templateqn_aced``: Milli-SMLY awarded for >= 50% of reviews of user-generated question positive. Default 10000
 
 Question template (i.e. crowdsourced questions) options:
 
