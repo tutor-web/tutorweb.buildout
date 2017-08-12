@@ -25,11 +25,11 @@ A description of each settings follows.
 Question assignment:
 
 * ``question_cap``: The maximum number of questions of each question type that a student should be allocated. Default 100
-* ``hist_sel``: Probability that a question from a previous lecture should be selected
+* ``hist_sel``: Probability that a question from a previous lecture should be selected. Default 0
 
 Tutor/pupil chat:
 
-* ``chat_competent_grade``: If a student gets a grade higher than this in a lecture, they can be a tutor. Default off
+* ``chat_competent_grade``: If a student gets a grade higher than this in a lecture, they can be a tutor. Default None
 
 Coin awards for students:
 
@@ -70,13 +70,13 @@ Study Time (i.e. combined time spent on question and reading explanation):
 
 * ``studytime_factor``: Default 2
 * ``studytime_answeredfactor``: Default 0
-* ``studytime_max``: Default 20, maximum study time in seconds.
+* ``studytime_max``: Maxiumum study time in seconds. Default 20
 
 Allocation
 
-* ``iaa_type``: Default "adaptive", which IAA algorithm to use on the client.
+* ``iaa_type``: Which IAA algorithm to use on the client. Default 'adaptive'
 * ``iaa_adaptive_gpow``: Default 1
-* ``allocation_method``: Default "original", which IAA algorithm to use on the server.
+* ``allocation_method``: Which IAA algorithm to use on the server. Default 'original'
 
 Randomly assigned settings
 ==========================
