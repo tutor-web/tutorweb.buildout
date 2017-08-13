@@ -72,7 +72,12 @@ Study Time (i.e. combined time spent on question and reading explanation):
 * ``studytime_answeredfactor``: Default 0
 * ``studytime_max``: Maxiumum study time in seconds. Default 20
 
-Allocation
+Practice Mode:
+
+* ``practice_after``: Number of questions after which you can start practicing. Default 0
+* ``practice_batch``: Number of practice questions you can do after "practice_after". Default Infinity
+
+Allocation:
 
 * ``iaa_type``: Which IAA algorithm to use on the client. Default 'adaptive'
 * ``iaa_adaptive_gpow``: Default 1
