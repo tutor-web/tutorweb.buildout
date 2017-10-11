@@ -37,9 +37,9 @@ Coin awards for students:
 * ``award_lecture_aced``: Milli-SMLY awarded for getting grade 10 in a lecture. Default 10000
 * ``award_tutorial_aced``: Milli-SMLY awarded for getting grade 10 in every lecture. Default 100000
 * ``award_templateqn_aced``: Milli-SMLY awarded for >= 50% of reviews of user-generated question positive. Default 10000
-* ``award_registered_lecture_answered``: Milli-SMLY awarded for class-registered student getting grade 5 in a lecture. Default 1000
-* ``award_registered_lecture_aced``: Milli-SMLY awarded for class-registered student getting grade 10 in a lecture. Default 10000
-* ``award_registered_tutorial_aced``: Milli-SMLY awarded for class-registered student getting grade 10 in every lecture. Default 100000
+* ``award_registered_lecture_answered``: Deprecated: use registered variant. Default 1000
+* ``award_registered_lecture_aced``: Deprecated: use registered variant. Default 10000
+* ``award_registered_tutorial_aced``: Deprecated: use registered variant. Default 100000
 * ``award_registered_templateqn_aced``: Milli-SMLY awarded for class-registered student >= 50% of reviews of user-generated question positive. Default 10000
 
 Question template (i.e. crowdsourced questions) options:
