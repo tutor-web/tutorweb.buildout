@@ -84,7 +84,7 @@ Practice Mode:
 
 Allocation:
 
-* ``iaa_type``: Which IAA algorithm to use on the client. Default 'adaptive'
+* ``iaa_mode``: Which IAA algorithm to use on the client. Default 'adaptive'
 * ``iaa_adaptive_gpow``: Default 1
 * ``allocation_method``: Which IAA algorithm to use on the server. Default 'original'
 
