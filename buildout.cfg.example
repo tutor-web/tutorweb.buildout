@@ -1,3 +1,4 @@
+# ---------- Development example
 [buildout]
 # Either extend cfgs/development.cfg or cfgs/production.cfg
 # production.cfg will start extra instances, and configure Plone to launch on startup
@@ -6,26 +7,33 @@ extends = cfgs/development.cfg
 # Use a sqllite database in the current directory (default option)
 quizdb-url = sqlite:///quizdb.sqlite
 
-# Example of using a MySQL database
-# If you want to use MySQL, you furst have to create the tw_quizdb database,
-# and a user for tutor-web to use. This should be:
-# mysql> CREATE DATABASE tw_quizdb;
-# mysql> GRANT ALL PRIVILEGES ON tw_quizdb.* TO '(username)'@'%' IDENTIFIED BY '(password)';
-# Finally enable this line instead:
-# quizdb-url = mysql+mysqldb://(username):(password)@localhost/tw_quizdb?charset=utf8
-
-# If this Plone instance has an associated Smileycoin wallet, insert the details here.
-quizdb-coin-pass = INSERTPASSWORD
-quizdb-coin-walletpass = INSERTPASSWORD
-
 [instance]
 # Default admin username:password for the Plone site
 user = admin:admin
 
-# Add "MySQL-python" below if using MySQL
-eggs +=
-#    MySQL-python
-#    Products.PDBDebugMode
-
 [versions]
 Products.PDBDebugMode = 1.3.1
+
+# ---------- Production example
+[buildout]
+extends = cfgs/production.cfg
+always-checkout = false
+parts +=
+    replicate-dump
+    replicate-dump-mkdir
+eggs +=
+    MySQL-python
+quizdb-url = mysql+mysqldb://tw_quizdb:${passwords:mysql}@localhost/tw_quizdb?charset=utf8
+quizdb-coin-pass = ${passwords:smlyrpc}
+quizdb-coin-walletpass = ${passwords:smlywallet}
+quizdb-coin-captcha-key = ${passwords:coin-captcha-key}
+
+[instance]
+user = admin:${passwords:admin}
+
+[passwords]
+admin = TODO: Admin password for tutorweb instance
+mysql = TODO: Mysql password for tw_quizdb user
+smlyrpc = TODO: SMLY wallet RPC password
+smlywallet = TODO: SMLY wallet passphrase
+coin-captcha-key = TODO: Captcha key
