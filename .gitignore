@@ -17,6 +17,7 @@ var
 .*
 *.pyc
 
+/dump.tar.bz2
 blob.tar.gz
 
 db.tar.gz

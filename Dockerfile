@@ -65,6 +65,11 @@ RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "\
   && ./bin/buildout \
 "]
 
+# Untar Data.fs tarball
+COPY dump.tar.bz2 /srv/tutorweb.buildout
+WORKDIR /srv/tutorweb.buildout
+RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "tar -C /srv/tutorweb.buildout -jxf /srv/tutorweb.buildout/dump.tar.bz2"]
+
 # Set-up Nginx
 RUN rm /etc/nginx/sites-enabled/default
 COPY docker/nginx_site.conf /etc/nginx/sites-enabled/tutorweb
