@@ -80,4 +80,5 @@ RUN /bin/echo -e "\n\
 
 # Run cron, which will launch supervisord
 CMD ["cron", "-f"]
-EXPOSE 80
+EXPOSE 8080
+EXPOSE 8189
