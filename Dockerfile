@@ -48,8 +48,10 @@ RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "\
   && ./bin/pip install -r requirements.txt \
 "]
 
-# Copy rest of config, run buildout
-COPY . /srv/tutorweb.buildout
+# Copy buildout config, run buildout
+COPY eggs download-cache /srv/tutorweb.buildout/
+COPY cfgs/* /srv/tutorweb.buildout/cfgs/
+COPY docker/buildout_base.cfg /srv/tutorweb.buildout/docker/
 RUN /bin/echo -e "\n\
 [buildout]\n\
 extends = docker/buildout_base.cfg\n\
@@ -75,6 +77,7 @@ RUN rm /etc/nginx/sites-enabled/default
 COPY docker/nginx_site.conf /etc/nginx/sites-enabled/tutorweb
 
 # Set-up MySQL
+COPY docker/cfg_mysql.sh /srv/tutorweb.buildout/docker/cfg_mysql.sh
 RUN /srv/tutorweb.buildout/docker/cfg_mysql.sh $pass_mysql $pass_tutorweb
 
 # Root crontab should also launch nginx/mysql
