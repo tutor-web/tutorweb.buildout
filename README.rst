@@ -27,6 +27,17 @@ And if using MySQL, you need:
 
     apt-get install mysql-server libmysqlclient-dev
 
+If generating LaTeX, the following may be needed::
+
+    apt install \
+        texlive-latex-recommended texlive-latex-extra \
+        texlive-fonts-recommended \
+        texlive-generic-recommended texlive-generic-extra \
+        texlive-math-extra \
+        texlive-pstricks texlive-science \
+        texlive-lang-european \
+        ghostscript transfig r-recommended
+
 Installation
 ============
 
