@@ -71,6 +71,7 @@ RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "\
 COPY dump.tar.bz2 /srv/tutorweb.buildout
 WORKDIR /srv/tutorweb.buildout
 RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "tar -C /srv/tutorweb.buildout -jxf /srv/tutorweb.buildout/dump.tar.bz2"]
+VOLUME /srv/tutorweb.buildout/var/filestorage /srv/tutorweb.buildout/var/blobstorage
 
 # Set-up Nginx
 RUN rm /etc/nginx/sites-enabled/default
@@ -79,6 +80,7 @@ COPY docker/nginx_site.conf /etc/nginx/sites-enabled/tutorweb
 # Set-up MySQL
 COPY docker/cfg_mysql.sh /srv/tutorweb.buildout/docker/cfg_mysql.sh
 RUN /srv/tutorweb.buildout/docker/cfg_mysql.sh $pass_mysql $pass_tutorweb
+VOLUME /var/lib/mysql
 
 # Root crontab should also launch nginx/mysql
 RUN /bin/echo -e "\n\
