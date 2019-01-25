@@ -19,6 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     cron \
     file \
     openssh-client \
+    logrotate \
     python \
     python-dev \
     python-tk \
