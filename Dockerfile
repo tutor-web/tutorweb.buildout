@@ -82,13 +82,14 @@ COPY docker/cfg_mysql.sh /srv/tutorweb.buildout/docker/cfg_mysql.sh
 RUN /srv/tutorweb.buildout/docker/cfg_mysql.sh $pass_mysql $pass_tutorweb
 VOLUME /var/lib/mysql
 
-# Root crontab should also launch nginx/mysql
-RUN /bin/echo -e "\n\
-@reboot /etc/init.d/nginx start\n\
-@reboot /etc/init.d/mysql start\n\
-" | crontab
-
-# Run cron, which will launch supervisord
-CMD ["cron", "-f"]
+# Generate start script to start all daemons, and run that on startup
+RUN /bin/echo -e "#!/bin/sh\n\
+/etc/init.d/cron start \n\
+/etc/init.d/nginx start \n\
+/etc/init.d/mysql start \n\
+/srv/tutorweb.buildout/bin/supervisord -u tutorweb -n \n\
+" > /sbin/start
+RUN chmod a+x /sbin/start
+CMD ["/sbin/start"]
 EXPOSE 8080
 EXPOSE 8189
