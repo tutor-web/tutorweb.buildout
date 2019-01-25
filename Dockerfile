@@ -50,7 +50,9 @@ RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "\
 "]
 
 # Copy buildout config, run buildout
-COPY eggs download-cache /srv/tutorweb.buildout/
+COPY eggs /srv/tutorweb.buildout/eggs/
+COPY download-cache /srv/tutorweb.buildout/download-cache/
+COPY local-eggs /srv/tutorweb.buildout/local-eggs/
 COPY cfgs/* /srv/tutorweb.buildout/cfgs/
 COPY docker/buildout_base.cfg /srv/tutorweb.buildout/docker/
 RUN /bin/echo -e "\n\
