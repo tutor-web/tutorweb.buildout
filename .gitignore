@@ -19,6 +19,7 @@ var
 
 /dump.tar.bz2
 blob.tar.gz
+/id_rsa*
 
 db.tar.gz
 

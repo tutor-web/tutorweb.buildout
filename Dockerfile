@@ -18,6 +18,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     procps \
     cron \
     file \
+    openssh-client \
     python \
     python-dev \
     python-tk \
@@ -67,11 +68,16 @@ RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "\
   && ./bin/buildout \
 "]
 
+# Copy SSH key into place
+COPY id_rsa /home/tutorweb/.ssh/
+RUN /usr/bin/ssh-keyscan -H tutor-web.net > /home/tutorweb/.ssh/known_hosts
+RUN ["chown", "-R", "tutorweb", "/home/tutorweb/.ssh/"]
+
 # Untar Data.fs tarball
 COPY dump.tar.bz2 /srv/tutorweb.buildout
 WORKDIR /srv/tutorweb.buildout
 RUN ["/bin/su", "-s/bin/sh", "-", "tutorweb", "-c", "tar -C /srv/tutorweb.buildout -jxf /srv/tutorweb.buildout/dump.tar.bz2"]
-VOLUME /srv/tutorweb.buildout/var/filestorage /srv/tutorweb.buildout/var/blobstorage
+VOLUME /srv/tutorweb.buildout/var/filestorage /srv/tutorweb.buildout/var/blobstorage /srv/tutorweb.buildout/local-dumps
 
 # Set-up Nginx
 RUN rm /etc/nginx/sites-enabled/default
