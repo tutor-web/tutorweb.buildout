@@ -16,6 +16,7 @@ ENV LANG en_GB.utf8
 # Install dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     procps \
+    dumb-init \
     cron \
     file \
     openssh-client \
@@ -92,7 +93,7 @@ RUN /srv/tutorweb.buildout/docker/cfg_mysql.sh $pass_mysql $pass_tutorweb
 VOLUME /var/lib/mysql
 
 # Generate start script to start all daemons, and run that on startup
-RUN /bin/echo -e "#!/bin/sh\n\
+RUN /bin/echo -e "#!/usr/bin/dumb-init /bin/sh\n\
 /etc/init.d/cron start \n\
 /etc/init.d/nginx start \n\
 /etc/init.d/mysql start \n\
