@@ -22,3 +22,13 @@ Before a dump can be ingested, any hostKeys need to be set on the receiving tuto
 This information can be found in the dump. Once this is done you can send the dump to::
 
     http://localhost:8080/@@quizdb-replication-ingest
+
+Copying tutor-web content
+=========================
+
+The entire content can be cloned by copying ``filestorage`` and ``blobstorage``.
+Individual parts can be done via. /manage exports
+
+Afterwards, visit the following link to make sure the DB is up-to-date::
+
+    http://tutor-web.eias.lan/@@sync-all
