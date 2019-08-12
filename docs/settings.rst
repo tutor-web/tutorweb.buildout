@@ -84,9 +84,13 @@ Practice Mode:
 
 Allocation:
 
-* ``iaa_type``: Which IAA algorithm to use on the client. Default 'adaptive'
+* ``iaa_type``: Which IAA algorithm to use on the client (adaptive or exam). Default 'adaptive'
 * ``iaa_adaptive_gpow``: Default 1
-* ``allocation_method``: Which IAA algorithm to use on the server. Default 'original'
+* ``iaa_exam_finished_tmpl``: A templated string that will be shown at the end of an exam, you can include the following options. Default 'You have answered all questions...'
+    ``${final_grade}`` - Final achieved grade
+    ``${max_grade}`` - Maximum possible grade, i.e. 10.
+    ``${failed_topics}`` - a list of titles
+* ``allocation_method``: Which IAA algorithm to use on the server (original or exam). Default 'original'
 
 Randomly assigned settings
 ==========================
@@ -118,3 +122,21 @@ be randomly assigned a new value between those bounds.
 If students have finished working on that lecture then their settings will be
 left unchanged. This means that historical data where students worked with
 different values will be preserved.
+
+Previewing a lecture's settings
+===============================
+
+Appending ``@@drill-settings`` to a lecture URL will show the combination of
+all lecture, tutorial and global settings. This is what will be used to
+calculate a student's settings.
+
+Exam lectures
+=============
+
+There are several settings that, whilst independent, all make sense for use with an exam:
+
+* ``iaa_type`` should be set to 'exam': This ensures the student takes the questions in order
+* ``allocation_method`` should be set to 'exam': This ensures the student's list of questions matches tutor-web, instead of a random allocation.
+* ``grade_algorithm`` should be set to 'ratiocorrect': i.e. the grade is based entirely on how many questions are answered correctly.
+
+Optionally ``iaa_exam_finished_tmpl`` could be set, see above.
