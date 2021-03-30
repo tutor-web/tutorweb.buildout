@@ -9,7 +9,7 @@ while git tag | grep -q "$(date +'%Y-%m-%d')-$I"; do
 done
 echo This release will be "$(date +'%Y-%m-%d')-$I"
 
-for f in . src/tutorweb.* src/Products.TutorWeb; do
+for f in . src/tutorweb.*; do
     (
         echo === $f
         cd $f;
