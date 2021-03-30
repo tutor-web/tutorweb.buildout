@@ -126,7 +126,7 @@ different values will be preserved.
 Previewing a lecture's settings
 ===============================
 
-Appending ``@@drill-settings`` to a lecture URL will show the combination of
+Appending ``/@@drill-settings?pprint=1`` to a lecture URL will show the combination of
 all lecture, tutorial and global settings. This is what will be used to
 calculate a student's settings.
 
