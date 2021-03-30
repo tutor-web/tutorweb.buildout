@@ -91,6 +91,7 @@ Allocation:
     ``${max_grade}`` - Maximum possible grade, i.e. 10.
     ``${failed_topics}`` - a list of titles
 * ``allocation_method``: Which IAA algorithm to use on the server (original or exam). Default 'original'
+* ``allocation_realloc_perc``: How many server allocations (oldest first) to throw away every 10 answers, as a percentage of ``question_cap``. Default 20% (i.e. 20 questions with question_cap 100)
 
 Randomly assigned settings
 ==========================
