@@ -21,7 +21,7 @@ Before you can install, either for production or development, you need:
 
     apt-get install build-essential python-dev python-tk \
         libxml2-dev libxslt-dev zlib1g-dev \
-        gfortran
+        gfortran pandoc
 
 And if using MySQL, you need:
 
