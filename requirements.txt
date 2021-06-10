@@ -1,5 +1,5 @@
 zc.buildout==2.9.5
-setuptools==26.1.1
+setuptools==36.8.0
 
 numpy==1.13.1
 appdirs==1.4.2
