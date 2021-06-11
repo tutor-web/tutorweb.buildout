@@ -1,4 +1,4 @@
-CFG_URL=${1-https://dist.plone.org/release/4.3.20/versions.cfg}
+CFG_URL=${1-https://dist.plone.org/release/5.1.7/versions.cfg}
 OUT_NAME="$(echo ${CFG_URL} | sed 's/\W/./g')"
 mkdir -p cfgs/
 

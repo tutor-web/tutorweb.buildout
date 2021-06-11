@@ -1,5 +1,6 @@
-zc.buildout==2.9.5
-setuptools==36.8.0
+# Should match plone pinning
+zc.buildout==2.13.3
+setuptools==42.0.2
 
 numpy==1.13.1
 appdirs==1.4.2
