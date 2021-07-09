@@ -79,6 +79,7 @@ OnCalendar=*-*-* 01:47:00
 WantedBy=timers.target
 EOF
 systemctl enable ${PROJECT_NAME}-zeopack.timer
+systemctl start ${PROJECT_NAME}-zeopack.timer
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-backup.service
 [Unit]
@@ -102,6 +103,7 @@ OnCalendar=*-*-* 02:37:00
 WantedBy=timers.target
 EOF
 systemctl enable ${PROJECT_NAME}-backup.timer
+systemctl start ${PROJECT_NAME}-backup.timer
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-instance@.service
 [Unit]
