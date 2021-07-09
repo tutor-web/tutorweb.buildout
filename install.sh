@@ -7,7 +7,8 @@ PROJECT_PATH="${PROJECT_PATH-$(dirname "$(readlink -f "$0")")}"  # The full proj
 PROJECT_NAME="${PROJECT_NAME-$(basename ${PROJECT_PATH})}"  # The project directory name, e.g. tutor-web
 PROJECT_MODE="${PROJECT_MODE-development}"  # The project mode, development or production
 
-SERVER_NAME="${SERVER_NAME-$(hostname --fqdn)}"  # The server_name(s) NGINX responds to
+SERVER_NAME="${SERVER_NAME-$(hostname --fqdn)}"  # The server_name NGINX responds to
+SERVER_ALIASES="${SERVER_ALIASES-}"  # Additional names for NGINX to respond to
 SERVER_CERT_PATH="${SERVER_CERT_PATH-}"  # e.g. /etc/nginx/ssl/certs
 
 if [ "${PROJECT_MODE}" = "production" ]; then
@@ -21,6 +22,12 @@ else
     APP_GROUP="${APP_GROUP-$(stat -c '%U' ${PROJECT_PATH}/.git)}"
 fi
 chown -R ${APP_USER}:${APP_GROUP} ./var
+
+SSL_CHAIN="/var/lib/dehydrated/certs/${SERVER_NAME}/fullchain.pem"
+[ -f "${SSL_CHAIN}" ] || SSL_CHAIN="/etc/ssl/certs/ssl-cert-snakeoil.pem"
+SSL_KEY="/var/lib/dehydrated/certs/${SERVER_NAME}/privkey.pem"
+[ -f "${SSL_KEY}"] || SSL_KEY="/etc/ssl/private/ssl-cert-snakeoil.key"
+[ -f "/etc/ssl/certs/dhparam.pem" ] || openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}.slice
 [Unit]
@@ -144,23 +151,44 @@ upstream ${PROJECT_NAME} {
 }
 
 server {
-  listen [::]:80;
-  listen      80;
-  server_name ${SERVER_NAME};
+    listen 80;
+    listen [::]:80;
+    listen [::]:443 ssl;
+    listen      443 ssl;
+    server_name ${SERVER_NAME} ${SERVER_ALIASES};
 
-  location ~ ^/manage {
-    deny all;
-  }
+    ssl_certificate      ${SSL_CHAIN};
+    ssl_certificate_key  ${SSL_KEY};
+    ssl_trusted_certificate ${SSL_CHAIN};
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
 
-  # Lets-encrypt
-  location /.well-known/acme-challenge {
-    root /tmp/acme-challenge;
-  }
+    # https://mozilla.github.io/server-side-tls/ssl-config-generator/
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:50m;
+    # intermediate configuration. tweak to your needs.
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-DES-CBC3-SHA:ECDHE-ECDSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+    ssl_prefer_server_ciphers on;
 
-  location / {
-    proxy_pass http://${PROJECT_NAME}/VirtualHostBase/\$scheme/\$host:\$server_port/tutor-web/VirtualHostRoot\$request_uri;
-    proxy_cache off;
-  }
+    location /.well-known/acme-challenge {
+        alias /var/lib/dehydrated/acme-challenges;
+    }
+
+    if (\$scheme != "https") {
+        return 301 https://\$server_name\$request_uri;
+    }
+    if (\$host != \$server_name) {
+        return 301 \$scheme://\$server_name\$request_uri;
+    }
+
+    location ~ ^/manage {
+      deny all;
+    }
+
+    location / {
+      proxy_pass http://${PROJECT_NAME}/VirtualHostBase/\$scheme/\$host:\$server_port/tutor-web/VirtualHostRoot\$request_uri;
+      proxy_cache off;
+    }
 }
 EOF
 mkdir -p /etc/nginx/sites-enabled ; ln -frs /etc/nginx/sites-available/${PROJECT_NAME} /etc/nginx/sites-enabled/${PROJECT_NAME}
