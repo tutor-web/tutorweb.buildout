@@ -137,7 +137,7 @@ systemctl enable \
     ${PROJECT_NAME}-instance@4.service
 
 systemctl daemon-reload
-systemctl restart ${PROJECT_NAME}-'*'
+systemctl restart ${PROJECT_NAME}.slice
 
 mkdir -p /etc/nginx/sites-available ; cat <<EOF > /etc/nginx/sites-available/${PROJECT_NAME}
 upstream ${PROJECT_NAME} {
