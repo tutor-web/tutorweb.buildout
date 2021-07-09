@@ -22,11 +22,21 @@ else
 fi
 chown -R ${APP_USER}:${APP_GROUP} ./var
 
+cat <<EOF > /etc/systemd/system/${PROJECT_NAME}.slice
+[Unit]
+Description=${PROJECT_NAME}
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable ${PROJECT_NAME}.slice
+
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-zeo.service
 [Unit]
 Description=${PROJECT_NAME}: ZEO server
 
 [Service]
+Slice=${PROJECT_NAME}.slice
 Type=simple
 ExecStart=${PROJECT_PATH}/bin/zeo fg
 # Wait for ZEO port to be open
@@ -37,7 +47,7 @@ Restart=on-failure
 RestartSec=10s
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=${PROJECT_NAME}.slice
 EOF
 systemctl enable ${PROJECT_NAME}-zeo.service
 
@@ -50,6 +60,7 @@ Requires=${PROJECT_NAME}-zeo.service
 After=${PROJECT_NAME}-zeo.service
 
 [Service]
+Slice=${PROJECT_NAME}.slice
 Type=oneshot
 ExecStart=${PROJECT_PATH}/bin/zeopack
 
@@ -74,6 +85,7 @@ cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-backup.service
 Description=${PROJECT_NAME}: backup
 
 [Service]
+Slice=${PROJECT_NAME}.slice
 Type=oneshot
 ExecStart=${PROJECT_PATH}/bin/backup
 EOF
@@ -98,6 +110,7 @@ PartOf=${PROJECT_NAME}-zeo.service
 After=${PROJECT_NAME}-zeo.service
 
 [Service]
+Slice=${PROJECT_NAME}.slice
 Type=simple
 ExecStart=${PROJECT_PATH}/bin/instance%i fg
 WorkingDirectory=${PROJECT_PATH}/bin
