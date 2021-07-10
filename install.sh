@@ -24,9 +24,9 @@ fi
 chown -R ${APP_USER}:${APP_GROUP} ./var
 
 SSL_CHAIN="/var/lib/dehydrated/certs/${SERVER_NAME}/fullchain.pem"
-[ -f "${SSL_CHAIN}" ] || SSL_CHAIN="/etc/ssl/certs/ssl-cert-snakeoil.pem"
+[ -e "${SSL_CHAIN}" ] || SSL_CHAIN="/etc/ssl/certs/ssl-cert-snakeoil.pem"
 SSL_KEY="/var/lib/dehydrated/certs/${SERVER_NAME}/privkey.pem"
-[ -f "${SSL_KEY}"] || SSL_KEY="/etc/ssl/private/ssl-cert-snakeoil.key"
+[ -e "${SSL_KEY}" ] || SSL_KEY="/etc/ssl/private/ssl-cert-snakeoil.key"
 [ -f "/etc/ssl/certs/dhparam.pem" ] || openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}.slice
