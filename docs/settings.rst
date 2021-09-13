@@ -64,7 +64,6 @@ Question timeout:
 * ``timeout_std``: Default 2
 * ``timeout_min``: Lowest timeout for a question. In minutes. Default 3
 * ``timeout_max``: Highest timeout for a question. In minutes. Default 10
-* ``timeout_baseline``: Baseline timeout for a question. In minutes. Default 0
 * ``timeout_grade``: Grade that lower timeouts kick in. Default 5
 
 Study Time (i.e. combined time spent on question and reading explanation):
@@ -77,6 +76,7 @@ Study Time (i.e. combined time spent on question and reading explanation):
 * ``studytime_factor``: Default 2
 * ``studytime_answeredfactor``: Default 0
 * ``studytime_max``: Maxiumum study time in seconds. Default 20
+* ``studytime_baseline``: Minimum study time in seconds. Default 0
 
 Practice Mode:
 
