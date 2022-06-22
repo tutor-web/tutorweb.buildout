@@ -1,7 +1,7 @@
 zc.buildout==2.9.5
 setuptools==36.8.0
 
-numpy==1.13.1
+numpy==1.22.0
 appdirs==1.4.2
 argparse==1.2.1
 enum34==1.1.6
