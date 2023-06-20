@@ -25,7 +25,7 @@ A description of each settings follows.
 Question assignment:
 
 * ``question_cap``: The maximum number of questions of each question type that a student should be allocated. Default 100
-* ``hist_sel``: Probability that a question from a previous lecture should be selected. Default 0
+* ``hist_sel``: Probability that a question from a previous lecture should be selected. Floating-point number ``[0,1]``. Default 0
 
 Tutor/pupil chat:
 
@@ -92,7 +92,7 @@ Allocation:
     ``${max_grade}`` - Maximum possible grade, i.e. 10.
     ``${failed_topics}`` - a list of titles
 * ``allocation_method``: Which IAA algorithm to use on the server (original or exam). Default 'original'
-* ``allocation_realloc_perc``: How many server allocations (oldest first) to throw away every 10 answers, as a percentage of ``question_cap``. Default 20% (i.e. 20 questions with question_cap 100)
+* ``allocation_realloc_perc``: How many server allocations (oldest first) to throw away every 10 answers, as a percentage of ``question_cap``. Percentage ``[0,100]``. Default 20% (i.e. 20 questions with question_cap 100)
 
 Randomly assigned settings
 ==========================
