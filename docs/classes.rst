@@ -5,6 +5,7 @@ Creating a new teacher
 ======================
 
 There is a tutor-web specific role a user can have, "Teacher". This allows the user to:
+
 * View the contents of questions
 
 When creating an account for a teacher, check the box. If they have already been created,
@@ -31,3 +32,10 @@ them to the class.
 
 If you have many students to add, use the "Bulk add students" tab which lets you paste
 in lots of email addresses, and will create any users that don't already exist.
+
+Viewing grades of classes / lectures
+====================================
+
+A user can view the results of students in a class or lecture if they are allowed to edit the class/lecture.
+
+This can be granted by going to the "Sharing" tab, searching for the user, check their "Can edit" box, and save.
