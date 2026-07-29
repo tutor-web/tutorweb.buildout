@@ -1,16 +1,6 @@
 Managing classes in Tutor-web
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Creating a new teacher
-======================
-
-There is a tutor-web specific role a user can have, "Teacher". This allows the user to:
-
-* View the contents of questions
-
-When creating an account for a teacher, check the box. If they have already been created,
-go to "Users and Groups" in the site control panel, and add "Teacher" to that user.
-
 Creating a new class
 ====================
 
@@ -36,6 +26,16 @@ in lots of email addresses, and will create any users that don't already exist.
 Viewing grades of classes / lectures
 ====================================
 
-A user can view the results of students in a class or lecture if they are allowed to edit the class/lecture.
+There is a tutor-web specific role a user can have, "Teacher". This allows the user to:
 
-This can be granted by going to the "Sharing" tab, searching for the user, check their "Can edit" box, and save.
+* View the contents of questions
+* View students' results in classes
+
+The Teacher role can be assigned to individual lectures/classes by:
+
+* Navigating to the class (or lecture/tutorial, to allow viewing of questions)
+* Click "Sharing" in green bar
+* Search for user
+* Select "Is a teacher"
+* Also select "Can edit" to allow user to add/remove students from a class
+* Press save
