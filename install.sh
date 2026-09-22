@@ -10,6 +10,14 @@ PROJECT_MODE="${PROJECT_MODE-development}"  # The project mode, development or p
 SERVER_NAME="${SERVER_NAME-$(hostname --fqdn)}"  # The server_name NGINX responds to
 SERVER_ALIASES="${SERVER_ALIASES-}"  # Additional names for NGINX to respond to
 SERVER_CERT_PATH="${SERVER_CERT_PATH-}"  # e.g. /etc/nginx/ssl/certs
+CORDOVA_APP_ORIGINS="${CORDOVA_APP_ORIGINS-}"  # Space-separated origins the Cordova app may be served from, for cross-domain JWT auth, e.g. "https://ui-tutorweb-app.example.com https://localhost:8100"
+
+# One "<origin>" \$http_origin; line per entry in CORDOVA_APP_ORIGINS, for the CORS map below
+CORS_MAP_ENTRIES=""
+for origin in ${CORDOVA_APP_ORIGINS}; do
+    CORS_MAP_ENTRIES="${CORS_MAP_ENTRIES}    \"${origin}\" \$http_origin;
+"
+done
 
 if [ "${PROJECT_MODE}" = "production" ]; then
     # Default to tutorweb
@@ -140,6 +148,12 @@ systemctl daemon-reload
 systemctl restart ${PROJECT_NAME}.slice
 
 mkdir -p /etc/nginx/sites-available ; cat <<EOF > /etc/nginx/sites-available/${PROJECT_NAME}
+# Only ever resolves to one of CORDOVA_APP_ORIGINS (or empty, for no match) -
+# never reflects an arbitrary Origin verbatim.
+map \$http_origin \$cors_origin {
+    default "";
+${CORS_MAP_ENTRIES}}
+
 upstream ${PROJECT_NAME} {
   # TODO: nginx doesn't support this yet(need 1.7.2) hash \$remote_addr\$cookie___ac consistent;
   ip_hash;
@@ -186,6 +200,25 @@ server {
     }
 
     location / {
+      # Cross-domain access for the Cordova app, which runs on its own
+      # origin(s) (CORDOVA_APP_ORIGINS) and authenticates via JWT bearer
+      # token (see tutorweb.quiz's jwt-login view) rather than the __ac
+      # session cookie, so every call it makes here is cross-origin and
+      # gets a CORS preflight. \$cors_origin (set by the map above) is
+      # empty for a non-matching Origin, so this is a no-op for anyone else.
+      add_header Access-Control-Allow-Origin \$cors_origin always;
+      add_header Vary Origin always;
+      add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+      add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+      if (\$request_method = OPTIONS) {
+        add_header Access-Control-Allow-Origin \$cors_origin always;
+        add_header Vary Origin always;
+        add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+        add_header Content-Length 0;
+        return 204;
+      }
+
       proxy_pass http://${PROJECT_NAME}/VirtualHostBase/\$scheme/\$host:\$server_port/tutor-web/VirtualHostRoot\$request_uri;
       proxy_cache off;
     }
