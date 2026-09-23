@@ -184,6 +184,9 @@ server {
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
     ssl_prefer_server_ciphers off;
 
+    # Add HSTS valid for a week
+    add_header Strict-Transport-Security "max-age=604800; includeSubDomains; preload" always;
+
     location /.well-known/acme-challenge {
         alias /var/lib/dehydrated/acme-challenges;
     }
@@ -206,11 +209,15 @@ server {
       # session cookie, so every call it makes here is cross-origin and
       # gets a CORS preflight. \$cors_origin (set by the map above) is
       # empty for a non-matching Origin, so this is a no-op for anyone else.
+      #
+      # NB: add_header does NOT inherit from the server block, we have to re-add headers
+      add_header Strict-Transport-Security "max-age=604800; includeSubDomains; preload" always;
       add_header Access-Control-Allow-Origin \$cors_origin always;
       add_header Vary Origin always;
       add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
       add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
       if (\$request_method = OPTIONS) {
+        add_header Strict-Transport-Security "max-age=604800; includeSubDomains; preload" always;
         add_header Access-Control-Allow-Origin \$cors_origin always;
         add_header Vary Origin always;
         add_header Access-Control-Allow-Headers "Authorization, Content-Type" always;
