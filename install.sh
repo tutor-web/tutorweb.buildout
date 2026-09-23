@@ -154,6 +154,20 @@ map \$http_origin \$cors_origin {
     default "";
 ${CORS_MAP_ENTRIES}}
 
+# Throttle password-guessing against the JSON login endpoint - JWTLoginView
+# has no lockout of its own. nginx can't see inside the POST body, so this
+# is per client IP rather than per account. The key is empty (meaning: not
+# rate limited, per limit_req_zone's own docs) for every URI except one
+# ending in /@@jwt-login - it's a suffix match, not an exact one, because
+# the view is registered for="*" in configure.zcml and so is reachable
+# under any traversal path, not just the bare one the app itself calls.
+map \$uri \$jwtlogin_limit_key {
+    default "";
+    "~*/@@jwt-login\$" \$binary_remote_addr;
+}
+limit_req_zone \$jwtlogin_limit_key zone=${PROJECT_NAME}_jwtlogin:10m rate=5r/m;
+limit_req_status 429;
+
 upstream ${PROJECT_NAME} {
   # TODO: nginx doesn't support this yet(need 1.7.2) hash \$remote_addr\$cookie___ac consistent;
   ip_hash;
@@ -203,6 +217,12 @@ server {
     }
 
     location / {
+      # Rate-limit login attempts (\$jwtlogin_limit_key, set above, is
+      # empty - i.e. not limited - for every URI except /@@jwt-login).
+      # burst=10 nodelay: allow a small burst, then reject outright rather
+      # than queueing/delaying requests past it.
+      limit_req zone=${PROJECT_NAME}_jwtlogin burst=10 nodelay;
+
       # Cross-domain access for the Cordova app, which runs on its own
       # origin(s) (CORDOVA_APP_ORIGINS) and authenticates via JWT bearer
       # token (see tutorweb.quiz's jwt-login view) rather than the __ac
