@@ -129,7 +129,7 @@ After=${PROJECT_NAME}-zeo.service
 [Service]
 Slice=${PROJECT_NAME}.slice
 Type=simple
-ExecStart=${PROJECT_PATH}/bin/instance%i fg
+ExecStart=${PROJECT_PATH}/bin/instance%i console
 WorkingDirectory=${PROJECT_PATH}/bin
 User=${APP_USER}
 Restart=on-failure
