@@ -64,7 +64,7 @@ RestartSec=10s
 [Install]
 WantedBy=${PROJECT_NAME}.slice
 EOF
-systemctl enable ${PROJECT_NAME}-zeo.service
+[ "$PROJECT_MODE" = "production" ] && systemctl enable ${PROJECT_NAME}-zeo.service
 
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-zeopack.service
@@ -93,8 +93,8 @@ OnCalendar=*-*-* 01:47:00
 [Install]
 WantedBy=timers.target
 EOF
-systemctl enable ${PROJECT_NAME}-zeopack.timer
-systemctl start ${PROJECT_NAME}-zeopack.timer
+[ "$PROJECT_MODE" = "production" ] && systemctl enable ${PROJECT_NAME}-zeopack.timer
+[ "$PROJECT_MODE" = "production" ] && systemctl start ${PROJECT_NAME}-zeopack.timer
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-backup.service
 [Unit]
@@ -117,8 +117,8 @@ OnCalendar=*-*-* 02:37:00
 [Install]
 WantedBy=timers.target
 EOF
-systemctl enable ${PROJECT_NAME}-backup.timer
-systemctl start ${PROJECT_NAME}-backup.timer
+[ "$PROJECT_MODE" = "production" ] && systemctl enable ${PROJECT_NAME}-backup.timer
+[ "$PROJECT_MODE" = "production" ] && systemctl start ${PROJECT_NAME}-backup.timer
 
 cat <<EOF > /etc/systemd/system/${PROJECT_NAME}-instance@.service
 [Unit]
@@ -138,7 +138,7 @@ RestartSec=10s
 [Install]
 WantedBy=${PROJECT_NAME}-zeo.service
 EOF
-systemctl enable \
+[ "$PROJECT_MODE" = "production" ] && systemctl enable \
     ${PROJECT_NAME}-instance@1.service \
     ${PROJECT_NAME}-instance@2.service \
     ${PROJECT_NAME}-instance@3.service \
